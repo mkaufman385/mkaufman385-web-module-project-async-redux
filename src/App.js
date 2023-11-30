@@ -1,12 +1,10 @@
 import React from "react";
+import { connect } from "react-redux";
 import "./App.css";
 import ActivityList from "./Components/ActivityList";
-import data from "./Data/activities";
 
 function App(props) {
-  const activities = data;
-  const loading = false;
-  const error = "";
+  const { loading, error } = props;
 
   return (
     <div className="App">
@@ -15,13 +13,18 @@ function App(props) {
         <button>Get New Activity</button>
       </form>
 
-      {loading ? (
-        <h3>Loading now</h3>
-      ) : (
-        <ActivityList activities={activities} />
-      )}
+      {error !== "" && <h3>{error}</h3>}
+
+      {loading ? <h3>Loading now</h3> : <ActivityList />}
     </div>
   );
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    loading: state.loading,
+    error: state.error,
+  };
+};
+
+export default connect(mapStateToProps)(App);
