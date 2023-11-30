@@ -1,10 +1,21 @@
 import React from "react";
 import { connect } from "react-redux";
 import "./App.css";
+import { useEffect } from "react";
+import { fetchStart, fetchSuccess } from "./Actions";
 import ActivityList from "./Components/ActivityList";
+
+import axios from "axios";
 
 function App(props) {
   const { loading, error } = props;
+
+  useEffect(() => {
+    props.fetchStart();
+    axios.get("https://www.boredapi.com/api/activity").then((res) => {
+      props.fetchSuccess(res.data);
+    });
+  }, []);
 
   return (
     <div className="App">
@@ -27,4 +38,10 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(App);
+const mapActionsToProps = () => {
+  return {
+    fetchStart,
+  };
+};
+
+export default connect(mapStateToProps, { fetchStart, fetchSuccess })(App);
