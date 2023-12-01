@@ -18,6 +18,7 @@ const reducer = (state = initialState, action) => {
         error: "",
       };
     case FETCH_SUCCESS:
+      console.log("MADE IT TO THE FETCHSUCCESS");
       return {
         ...state,
         loading: false,

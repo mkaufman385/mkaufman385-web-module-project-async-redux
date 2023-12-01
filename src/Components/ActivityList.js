@@ -7,13 +7,7 @@ const ActivityList = (props) => {
 
   console.log("This one:", activities);
 
-  return (
-    <div id="activityList">
-      {activities.map((activity) => {
-        return <Activity activity={activity} />;
-      })}
-    </div>
-  );
+  return <div id="activityList">{<Activity activity={activities} />}</div>;
 };
 
 const mapStateToProps = (state) => {
