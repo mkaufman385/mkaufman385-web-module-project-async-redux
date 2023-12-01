@@ -5,8 +5,6 @@ import Activity from "./Activity";
 const ActivityList = (props) => {
   const { activities } = props;
 
-  console.log("This one:", activities);
-
   return <div id="activityList">{<Activity activity={activities} />}</div>;
 };
 

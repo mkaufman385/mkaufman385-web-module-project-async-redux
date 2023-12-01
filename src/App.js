@@ -5,22 +5,25 @@ import { useEffect } from "react";
 import { fetchStart, fetchSuccess } from "./Actions";
 import ActivityList from "./Components/ActivityList";
 
-import axios from "axios";
+import { getActivities } from "./Actions";
 
 function App(props) {
-  const { loading, error } = props;
+  const { loading, error, getActivities } = props;
 
   useEffect(() => {
-    props.fetchStart();
-    axios.get("https://www.boredapi.com/api/activity").then((res) => {
-      props.fetchSuccess(res.data);
-    });
+    getActivities();
+    //
   }, []);
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    props.getActivities();
+  };
 
   return (
     <div className="App">
-      <h1>Async Redux - Random Activity Selector</h1>
-      <form>
+      <h1 className="App-header">Async Redux - Random Activity Selector</h1>
+      <form onClick={handleClick}>
         <button>Get New Activity</button>
       </form>
 
@@ -44,4 +47,4 @@ const mapActionsToProps = () => {
   };
 };
 
-export default connect(mapStateToProps, { fetchStart, fetchSuccess })(App);
+export default connect(mapStateToProps, { getActivities })(App);
